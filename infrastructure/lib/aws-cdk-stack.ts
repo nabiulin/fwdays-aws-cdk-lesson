@@ -30,14 +30,14 @@ export class AwsCdkStack extends Stack {
     };
 
     const bucketProps = {
-      bucketName: `aws-s3-fwdays-${this.account}-${this.region}-self-hosted`.toLowerCase(),
+      bucketName: `aws-s3-fwdays-${this.account}-${this.region}-self-hosted-react-app`.toLowerCase(),
       encryption: s3.BucketEncryption.S3_MANAGED,
       enforceSSL: true,
       versioned: true,
       removalPolicy: RemovalPolicy.RETAIN,
       blockPublicAccess: new s3.BlockPublicAccess(blockPublicAccessPolicy),
       //static self hosted
-      publicAccess: true,
+      publicReadAccess: true,
       websiteIndexDocument: DEFAULT_ROOT_OBJECT,
       websiteErrorDocument: DEFAULT_ROOT_OBJECT,
     };
@@ -63,7 +63,7 @@ export class AwsCdkStack extends Stack {
       ],
     }
 
-    return new cloudfront.Distribution(this, "SiteDistribution", distributionOptions);
+    return new cloudfront.Distribution(this, "SelfHostedSiteDistribution", distributionOptions);
   }
 
   deployDist(destinationBucket: s3.Bucket, distribution: Distribution) {
