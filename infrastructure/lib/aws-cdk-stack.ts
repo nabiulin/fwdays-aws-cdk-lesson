@@ -22,7 +22,7 @@ export class AwsCdkStack extends Stack {
     };
 
     const bucketProps = {
-      bucketName: `aws-s3-fwdays-${this.account}-${this.region}-lesson-1`.toLowerCase(),
+      bucketName: `aws-s3-fwdays-${this.account}-${this.region}-lesson-2`.toLowerCase(),
       encryption: s3.BucketEncryption.S3_MANAGED,
       enforceSSL: true,
       versioned: true,
@@ -35,7 +35,7 @@ export class AwsCdkStack extends Stack {
 
   uploadFile(bucket: s3.Bucket) {
     const deployOptions: BucketDeploymentProps = {
-      sources: [s3deploy.Source.asset("./uploads")],
+      sources: [s3deploy.Source.asset("./dist")],
       destinationBucket: bucket,
     };
 

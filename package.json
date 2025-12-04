@@ -2,7 +2,7 @@
   "name": "aws-cdk",
   "version": "0.1.0",
   "bin": {
-    "aws-cdk": "bin/aws-cdk.js"
+    "aws-cdk": "infrastructure/bin/aws-cdk.js"
   },
   "scripts": {
     "build": "tsc",
