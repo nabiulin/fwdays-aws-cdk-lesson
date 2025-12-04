@@ -36,14 +36,19 @@ export class AwsCdkStack extends Stack {
       versioned: true,
       removalPolicy: RemovalPolicy.RETAIN,
       blockPublicAccess: new s3.BlockPublicAccess(blockPublicAccessPolicy),
+      //static self hosted
+      publicAccess: true,
+      websiteIndexDocument: DEFAULT_ROOT_OBJECT,
+      websiteErrorDocument: DEFAULT_ROOT_OBJECT,
     };
 
-    return new s3.Bucket(this, "FWDaysS3Bucket", bucketProps);
+    return new s3.Bucket(this, "FWDaysS3BucketSelfHosted", bucketProps);
   }
 
   createDistribution(bucket: s3.Bucket) {
     const distributionOptions = {
       defaultRootObject: DEFAULT_ROOT_OBJECT,
+      description: "Self Hosted React App",
       defaultBehavior: {
         origin: new origins.S3StaticWebsiteOrigin(bucket),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
