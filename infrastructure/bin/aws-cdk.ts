@@ -1,15 +1,16 @@
 #!/usr/bin/env node
-import 'source-map-support/register';
-import * as cdk from 'aws-cdk-lib';
-import {AwsCdkStack} from '../lib/aws-cdk-stack';
+import "source-map-support/register";
+import * as cdk from "aws-cdk-lib";
+import { FrontendStack } from "../stacks/frontend-stack";
 
 const app = new cdk.App();
 
 const env = {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
-}
-new AwsCdkStack(app, 'aws-cdk-lesson-2', {
-    env,
-    description: "FwDays AWS Cdk Stack. Lesson 1",
+  account: process.env.CDK_DEFAULT_ACCOUNT,
+  region: process.env.CDK_DEFAULT_REGION,
+};
+
+new FrontendStack(app, "fwdays-frontend", {
+  env,
+  description: "FWDays Frontend Stack - React app hosted on S3 + CloudFront",
 });

@@ -1,18 +1,18 @@
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
 
-import {Stack, StackProps, RemovalPolicy, Duration, CfnOutput} from "aws-cdk-lib/core";
+import { Stack, StackProps, RemovalPolicy, Duration, CfnOutput } from "aws-cdk-lib/core";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 
 import { Construct } from "constructs";
 import { BucketDeploymentProps } from "aws-cdk-lib/aws-s3-deployment";
-import {Distribution} from "aws-cdk-lib/aws-cloudfront";
+import { Distribution } from "aws-cdk-lib/aws-cloudfront";
 
 const DEFAULT_ROOT_OBJECT = "index.html";
-const LOCAL_DIST_FOLDER_PATH = "./dist";
+const LOCAL_DIST_FOLDER_PATH = "./frontend/dist";
 
-export class AwsCdkStack extends Stack {
+export class FrontendStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
     const bucket = this.createBucket();
@@ -61,7 +61,7 @@ export class AwsCdkStack extends Stack {
           ttl: Duration.seconds(0),
         },
       ],
-    }
+    };
 
     return new cloudfront.Distribution(this, "SelfHostedSiteDistribution", distributionOptions);
   }
