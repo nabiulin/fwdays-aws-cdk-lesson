@@ -8,5 +8,4 @@ cdk.out
 
 .env
 .idea
-dist
 /cdk.context.json
