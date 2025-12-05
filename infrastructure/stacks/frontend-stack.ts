@@ -48,7 +48,7 @@ export class FrontendStack extends Stack {
   createDistribution(bucket: s3.Bucket) {
     const distributionOptions = {
       defaultRootObject: DEFAULT_ROOT_OBJECT,
-      description: "Self Hosted React App",
+      comment: "Self Hosted React App",
       defaultBehavior: {
         origin: new origins.S3StaticWebsiteOrigin(bucket),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,

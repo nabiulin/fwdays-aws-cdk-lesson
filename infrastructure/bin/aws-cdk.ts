@@ -10,7 +10,7 @@ const env = {
   region: process.env.CDK_DEFAULT_REGION,
 };
 
-new FrontendStack(app, "fwdays-frontend", {
+new FrontendStack(app, "fwdays-frontend-stack", {
   env,
   description: "FWDays Frontend Stack - React app hosted on S3 + CloudFront",
 });
