@@ -12,4 +12,9 @@
 ## Frontend
 * `cd frontend && npm install` install React app dependencies
 * `npm run dev` start the Vite dev server
-* `npm run build` build the static assets to the root `dist` folder (used by CDK deployment)
+* `npm run build` build the static assets to the root 
+
+## Backend
+* `cd backend && npm install` install React app dependencies
+* `npm run dev` start the dev server
+* `npm run build` build the static assets to the root 
