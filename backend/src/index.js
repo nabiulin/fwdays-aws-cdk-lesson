@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,11 +12,14 @@ app.use(express.json());
 let cryptoData = null;
 let lastUpdateTime = null;
 
-async function fetchCryptoData() {
+async function fetchCryptoData(currency) {
   try {
-    const response = await fetch(
-      "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin&vs_currencies=usd&include_24hr_change=true"
-    );
+    const response = await fetch(`https://api.freecryptoapi.com/v1/getData?symbol=${currency}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${process.env.CRYPTO_API_TOKEN}`,
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`API responded with status: ${response.status}`);
@@ -23,7 +28,7 @@ async function fetchCryptoData() {
     const data = await response.json();
     return {
       success: true,
-      data: data,
+      data: data.symbols[0],
     };
   } catch (error) {
     console.error("Error fetching crypto data:", error.message);
@@ -35,8 +40,12 @@ async function fetchCryptoData() {
 }
 
 async function updateCryptoData() {
-  const result = await fetchCryptoData();
-  cryptoData = result;
+  const resultBTC = await fetchCryptoData("BTC");
+  const resultETH = await fetchCryptoData("ETH");
+  const resultLTC = await fetchCryptoData("LTC");
+
+  cryptoData = [resultBTC.data, resultETH.data, resultLTC.data];
+
   lastUpdateTime = new Date();
   console.log(`[${lastUpdateTime.toISOString()}] Crypto data updated`);
 }
@@ -54,7 +63,7 @@ app.get("/api/crypto", (req, res) => {
   }
 
   res.json({
-    ...cryptoData,
+    data: cryptoData,
     lastUpdate: lastUpdateTime?.toISOString(),
   });
 });
