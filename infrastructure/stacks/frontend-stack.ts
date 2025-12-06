@@ -26,6 +26,10 @@ export class FrontendStack extends Stack {
     this.deployDist(bucket, distribution);
   }
 
+  /**
+   * Create s3 bucket
+   * @returns
+   */
   createBucket() {
     const blockPublicAccessPolicy = {
       blockPublicAcls: false,
@@ -50,6 +54,11 @@ export class FrontendStack extends Stack {
     return new s3.Bucket(this, "FWDaysS3BucketSelfHosted", bucketProps);
   }
 
+  /**
+   * Create distribution
+   * @param bucket
+   * @returns
+   */
   createDistribution(bucket: s3.Bucket) {
     const distributionOptions = {
       defaultRootObject: DEFAULT_ROOT_OBJECT,
@@ -71,6 +80,11 @@ export class FrontendStack extends Stack {
     return new cloudfront.Distribution(this, "SelfHostedSiteDistribution", distributionOptions);
   }
 
+  /**
+   * Deploy app build
+   * @param destinationBucket
+   * @param distribution
+   */
   deployDist(destinationBucket: s3.Bucket, distribution: Distribution) {
     const deployOptions: BucketDeploymentProps = {
       sources: [s3deploy.Source.asset(LOCAL_DIST_FOLDER_PATH)],

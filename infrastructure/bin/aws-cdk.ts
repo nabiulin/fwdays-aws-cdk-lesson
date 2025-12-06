@@ -11,14 +11,12 @@ const env = {
   region: process.env.CDK_DEFAULT_REGION,
 };
 
-// Frontend Stack - S3 + CloudFront
 new FrontendStack(app, "fwdays-frontend", {
   env,
-  description: "FWDays Frontend Stack - React app hosted on S3 + CloudFront",
+  description: "Frontend Stack.React app hosted on S3 + CloudFront",
 });
 
-// Backend Stack - ECR + CodeBuild
 new BackendStack(app, "fwdays-backend", {
   env,
-  description: "FWDays Backend Stack - ECR repository and CodeBuild project",
+  description: "Backend Stack.ECR repository and CodeBuild project",
 });
