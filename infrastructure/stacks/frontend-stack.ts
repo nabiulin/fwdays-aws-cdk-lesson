@@ -15,9 +15,14 @@ const LOCAL_DIST_FOLDER_PATH = "./frontend/dist";
 export class FrontendStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
-    const bucket = this.createBucket();
 
+    this.init();
+  }
+
+  init() {
+    const bucket = this.createBucket();
     const distribution = this.createDistribution(bucket);
+
     this.deployDist(bucket, distribution);
   }
 
