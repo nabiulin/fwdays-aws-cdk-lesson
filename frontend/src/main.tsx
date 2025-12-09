@@ -8,6 +8,7 @@ import MainPage from "./pages/Main.tsx";
 import AboutPage from "./pages/About.tsx";
 import ContactsPage from "./pages/Features.tsx";
 import PricingPage from "./pages/Pricing.tsx";
+import FeedbackPage from "./pages/Feedback.tsx";
 import Page404 from "./pages/404.tsx";
 
 createRoot(document.getElementById("root")!).render(
@@ -52,6 +53,14 @@ createRoot(document.getElementById("root")!).render(
                   >
                     About
                   </NavLink>
+                  <NavLink
+                    to="/feedback"
+                    className={({ isActive }) =>
+                      `rounded-md px-3 py-2 text-sm font-medium text-white ${isActive ? "bg-gray-950/50" : ""}`
+                    }
+                  >
+                    Feedback
+                  </NavLink>
                 </div>
               </div>
             </div>
@@ -66,6 +75,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/about" element={<AboutPage />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/contacts" element={<ContactsPage />} />
+            <Route path="/feedback" element={<FeedbackPage />} />
             <Route path="*" element={<Page404 />} />
           </Routes>
         </div>
