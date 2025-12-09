@@ -52,7 +52,7 @@ function FeedbackItem({ feedback, onUpdate, onDelete }: FeedbackItemProps) {
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
       <div className="flex items-start justify-between gap-3">
-        <div>
+        <div className="w-full">
           {isEditing ? (
             <div className="space-y-3">
               <div className="relative">
