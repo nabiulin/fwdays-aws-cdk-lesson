@@ -39,7 +39,7 @@ export class FrontendStack extends Stack {
     };
 
     const bucketProps = {
-      bucketName: `aws-s3-fwdays-${this.account}-${this.region}-self-hosted-react-app`.toLowerCase(),
+      bucketName: `aws-s3-fwdays-${this.account}-${this.region}-lamdba-lesson-4`.toLowerCase(),
       encryption: s3.BucketEncryption.S3_MANAGED,
       enforceSSL: true,
       versioned: true,
@@ -51,7 +51,7 @@ export class FrontendStack extends Stack {
       websiteErrorDocument: DEFAULT_ROOT_OBJECT,
     };
 
-    return new s3.Bucket(this, "FWDaysS3BucketSelfHosted", bucketProps);
+    return new s3.Bucket(this, "S3BucketSelfHostedAppWithLambda", bucketProps);
   }
 
   /**
@@ -62,7 +62,7 @@ export class FrontendStack extends Stack {
   createDistribution(bucket: s3.Bucket) {
     const distributionOptions = {
       defaultRootObject: DEFAULT_ROOT_OBJECT,
-      comment: "Self Hosted React App",
+      comment: "Self Hosted React App With Lambda integration",
       defaultBehavior: {
         origin: new origins.S3StaticWebsiteOrigin(bucket),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -77,7 +77,7 @@ export class FrontendStack extends Stack {
       ],
     };
 
-    return new cloudfront.Distribution(this, "SelfHostedSiteDistribution", distributionOptions);
+    return new cloudfront.Distribution(this, "DistributionSelfHostedAppWithLambda", distributionOptions);
   }
 
   /**
@@ -99,7 +99,7 @@ export class FrontendStack extends Stack {
       value: `https://${distribution.domainName}`,
     });
 
-    new CfnOutput(this, "FWDaysS3Bucket", {
+    new CfnOutput(this, "S3Bucket", {
       value: destinationBucket.bucketName,
     });
   }

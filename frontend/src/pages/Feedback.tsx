@@ -51,7 +51,7 @@ function FeedbackPage() {
   }, []);
 
   const handleUpdate = async (id: string, payload: Omit<Feedback, "id">) => {
-    await fetchJson<Feedback>(`${API_BASE}/feedback`, {
+    await fetchJson<Feedback>(`${API_BASE}/feedback/${id}`, {
       method: "PUT",
       body: JSON.stringify({ id, ...payload }),
     });
@@ -59,7 +59,7 @@ function FeedbackPage() {
   };
 
   const handleDelete = async (id: string, createdAt: string) => {
-    await fetchJson<void>(`${API_BASE}/feedback`, { method: "DELETE", body: JSON.stringify({ id, createdAt }) });
+    await fetchJson<void>(`${API_BASE}/feedback/${id}`, { method: "DELETE", body: JSON.stringify({ id, createdAt }) });
     setFeedbacks((prev) => prev.filter((f) => f.id !== id));
   };
 
